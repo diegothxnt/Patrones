@@ -598,8 +598,8 @@ public class ImplementacionPatronesDiseno {
     }
     
     public static void main(String[] args) {
-        System.out.println("UNIVERSIDAD [Nombre de tu Universidad]");
-        System.out.println("FACULTAD DE [Tu Facultad]");
+        System.out.println("UNIVERSIDAD Rafael Urdaneta");
+        System.out.println("FACULTAD DE Ing computacion");
         System.out.println("IMPLEMENTACIÓN DE PATRONES DE DISEÑO EN JAVA");
         System.out.println("=============================================\n");
         
@@ -630,3 +630,4 @@ public class ImplementacionPatronesDiseno {
         System.out.println("=".repeat(60));
     }
 }
+
