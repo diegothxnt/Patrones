@@ -461,3 +461,172 @@ class Administrativo implements ObservadorNotificacion {
         return "Admin. " + nombre + " - " + area;
     }
 }
+// ==================== CLASE PRINCIPAL ====================
+
+public class ImplementacionPatronesDiseno {
+    
+    public static void demostracionSingleton() {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("DEMOSTRACIÓN DEL PATRÓN SINGLETON (CREACIONAL)");
+        System.out.println("=".repeat(60));
+        
+        System.out.println("\nObteniendo instancias del gestor de conexiones...");
+        
+        GestorConexiones gestor1 = GestorConexiones.obtenerInstancia();
+        GestorConexiones gestor2 = GestorConexiones.obtenerInstancia();
+        GestorConexiones gestor3 = GestorConexiones.obtenerInstancia();
+        
+        System.out.println("\nVerificación de instancia única:");
+        System.out.println("HashCode gestor1: " + System.identityHashCode(gestor1));
+        System.out.println("HashCode gestor2: " + System.identityHashCode(gestor2));
+        System.out.println("HashCode gestor3: " + System.identityHashCode(gestor3));
+        System.out.println("¿Todas las referencias apuntan al mismo objeto? " + 
+                         (gestor1 == gestor2 && gestor2 == gestor3));
+        
+        System.out.println("\nUtilizando el gestor de conexiones:");
+        gestor1.establecerConexion();
+        gestor2.ejecutarComando("SELECT * FROM Estudiantes");
+        gestor3.ejecutarComando("UPDATE Calificaciones SET nota = 9.5 WHERE id = 101");
+        
+        gestor1.mostrarInformacion();
+        
+        System.out.println("\nIntentando crear nueva conexión (debería reutilizar la existente):");
+        gestor2.establecerConexion();
+        
+        gestor3.cerrarConexion();
+        gestor1.mostrarInformacion();
+    }
+    
+    public static void demostracionBridge() {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("DEMOSTRACIÓN DEL PATRÓN BRIDGE (ESTRUCTURAL)");
+        System.out.println("=".repeat(60));
+        
+        System.out.println("\nCreando dispositivos multimedia...");
+        DispositivoMultimedia televisorSala = new Televisor("Samsung");
+        DispositivoMultimedia sonidoHome = new SistemaSonido("Sony");
+        
+        System.out.println("\nConfigurando controles universales:");
+        ControlUniversal controlTV = new ControlBasico(televisorSala);
+        ControlUniversal controlAudio = new ControlAvanzado(sonidoHome);
+        
+        System.out.println("\n--- Operaciones con Control Básico ---");
+        controlTV.encender();
+        controlTV.aumentarVolumen();
+        controlTV.aumentarVolumen();
+        controlTV.cambiarEntrada("HDMI2");
+        controlTV.disminuirVolumen();
+        controlTV.mostrarEstado();
+        controlTV.apagar();
+        
+        System.out.println("\n--- Operaciones con Control Avanzado ---");
+        ControlAvanzado controlAudioAvanzado = (ControlAvanzado) controlAudio;
+        controlAudioAvanzado.encender();
+        controlAudioAvanzado.aumentarVolumen();
+        controlAudioAvanzado.aumentarVolumen();
+        controlAudioAvanzado.cambiarEntrada("Dolby Atmos");
+        controlAudioAvanzado.silenciar();
+        controlAudioAvanzado.silenciar();
+        controlAudioAvanzado.restaurarConfiguracion();
+        controlAudioAvanzado.mostrarEstado();
+        controlAudioAvanzado.apagar();
+        
+        System.out.println("\n--- Flexibilidad del patrón Bridge ---");
+        System.out.println("Configurando control avanzado con televisor:");
+        ControlUniversal controlCombinado = new ControlAvanzado(televisorSala);
+        controlCombinado.encender();
+        controlCombinado.cambiarEntrada("USB");
+        controlCombinado.mostrarEstado();
+    }
+    
+    public static void demostracionObserver() {
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("DEMOSTRACIÓN DEL PATRÓN OBSERVER (COMPORTAMIENTO)");
+        System.out.println("=".repeat(60));
+        
+        System.out.println("\nInicializando sistema de notificaciones académicas...");
+        SistemaNotificacionesAcademico sistema = new SistemaNotificacionesAcademico();
+        
+        System.out.println("\nRegistrando participantes del sistema académico:");
+        Estudiante estudiante1 = new Estudiante("Ana López", "A123456");
+        Estudiante estudiante2 = new Estudiante("Carlos Ruiz", "B789012");
+        Profesor profesor1 = new Profesor("Dr. Martínez", "Informática");
+        Administrativo admin1 = new Administrativo("María González", "Registro");
+        
+        sistema.registrarObservador(estudiante1);
+        sistema.registrarObservador(profesor1);
+        sistema.mostrarObservadoresActivos();
+        
+        System.out.println("\n--- Publicando notificaciones ---");
+        sistema.publicarNotificacion("Cambio de Horario", 
+                                   "Las clases del viernes se moverán al sábado en el mismo horario");
+        
+        pausa(800);
+        
+        sistema.publicarNotificacion("Entrega de Proyectos", 
+                                   "Fecha límite extendida hasta el próximo lunes a las 23:59");
+        
+        pausa(800);
+        
+        System.out.println("\nRegistrando nuevo observador...");
+        sistema.registrarObservador(estudiante2);
+        sistema.registrarObservador(admin1);
+        sistema.mostrarObservadoresActivos();
+        
+        sistema.publicarNotificacion("Mantenimiento del Sistema", 
+                                   "El campus virtual estará fuera de servicio el domingo de 2:00 a 6:00 AM");
+        
+        pausa(800);
+        
+        System.out.println("\nEliminando un observador...");
+        sistema.eliminarObservador(profesor1);
+        sistema.mostrarObservadoresActivos();
+        
+        sistema.publicarNotificacion("Resultados Exámenes", 
+                                   "Los resultados del parcial ya están disponibles en el portal");
+        
+        System.out.println("\n--- Resumen final ---");
+        estudiante1.mostrarHistorial();
+    }
+    
+    private static void pausa(int milisegundos) {
+        try {
+            Thread.sleep(milisegundos);
+        } catch (InterruptedException e) {
+            System.out.println("Pausa interrumpida");
+        }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("UNIVERSIDAD [Nombre de tu Universidad]");
+        System.out.println("FACULTAD DE [Tu Facultad]");
+        System.out.println("IMPLEMENTACIÓN DE PATRONES DE DISEÑO EN JAVA");
+        System.out.println("=============================================\n");
+        
+        System.out.println("Este programa demuestra tres patrones de diseño fundamentales:");
+        System.out.println("1. Singleton (Patrón Creacional)");
+        System.out.println("2. Bridge (Patrón Estructural)");
+        System.out.println("3. Observer (Patrón de Comportamiento)\n");
+        
+        demostracionSingleton();
+        pausa(1500);
+        
+        demostracionBridge();
+        pausa(1500);
+        
+        demostracionObserver();
+        
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("CONCLUSIÓN");
+        System.out.println("=".repeat(60));
+        
+        System.out.println("\nSe ha demostrado exitosamente:");
+        System.out.println("✓ Singleton: Gestión de una única instancia para conexiones a BD");
+        System.out.println("✓ Bridge: Separación entre controles y dispositivos multimedia");
+        System.out.println("✓ Observer: Sistema de notificaciones académicas eficiente");
+        
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("FIN DE LA DEMOSTRACIÓN");
+        System.out.println("=".repeat(60));
+    }
+}
