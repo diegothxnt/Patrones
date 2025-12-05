@@ -1,81 +1,69 @@
-# Patrones
-Implementación de Patrones de Diseño en Java
-* Descripción del Proyecto
-Este proyecto demuestra la implementación de tres patrones de diseño fundamentales en Java, cada uno representando una categoría diferente de patrones de diseño.
+Patrones de Diseño en Java
+📌 Descripción
+Proyecto que implementa 3 patrones de diseño en Java para la materia de Programación Orientada a Objetos.
 
-* Patrones Implementados
-1. Singleton (Patrón Creacional)
-Propósito: Garantizar que una clase tenga una sola instancia
+🎯 Patrones Implementados
+1. Singleton (Creacional)
+Controla una única instancia de conexión a base de datos
 
-Implementación: Gestor de conexiones a base de datos
+Usa sincronización para seguridad en hilos
 
-Caso de uso: Sistema académico que requiere una única conexión compartida
+2. Bridge (Estructural)
+Separa controles remotos de dispositivos multimedia
 
-2. Bridge (Patrón Estructural)
-Propósito: Separar la abstracción de su implementación
+Permite combinar diferentes controles con diferentes dispositivos
 
-Implementación: Controles universales para dispositivos multimedia
+3. Observer (Comportamiento)
+Sistema de notificaciones académicas
 
-Caso de uso: Sistema de control para diferentes tipos de dispositivos
+Notifica automáticamente a estudiantes, profesores y administrativos
 
-3. Observer (Patrón de Comportamiento)
-Propósito: Establecer dependencias uno-a-muchos entre objetos
-
-Implementación: Sistema de notificaciones académicas
-
-Caso de uso: Notificaciones a estudiantes, profesores y personal administrativo
-
-*  Estructura del Proyecto
-text
-src/
-├── GestorConexiones.java          # Implementación Singleton
-├── DispositivoMultimedia.java     # Interfaz para patrón Bridge
-├── Televisor.java                 # Implementación concreta Bridge
-├── SistemaSonido.java             # Implementación concreta Bridge
-├── ControlUniversal.java          # Abstracción Bridge
-├── SistemaNotificaciones.java     # Sujeto Observer
-├── Estudiante.java                # Observador concreto
-├── Profesor.java                  # Observador concreto
-├── Administrativo.java            # Observador concreto
-└── ImplementacionPatronesDiseno.java  # Clase principal
-*  Cómo Ejecutar
-Requisitos
-Java JDK 8 o superior
-
-* Compilador Java (javac)
-
-* Pasos de Ejecución
-Compilar el proyecto:
-
-* bash
-javac ImplementacionPatronesDiseno.java
-Ejecutar el programa:
-
-* bash
-java ImplementacionPatronesDiseno
-Ejecución alternativa
+🚀 Ejecución
+Compilación
 bash
-# Compilar y ejecutar en un solo paso
-javac ImplementacionPatronesDiseno.java && java ImplementacionPatronesDiseno
-* Salida del Programa
-El programa mostrará tres secciones principales:
+javac ImplementacionPatronesDiseno.java
+Ejecución
+bash
+java ImplementacionPatronesDiseno
+📁 Estructura Principal
+GestorConexiones.java - Singleton
 
-Demostración Singleton: Verificación de instancia única y operaciones de conexión
+DispositivoMultimedia.java - Interface Bridge
 
-Demostración Bridge: Control de dispositivos multimedia con diferentes interfaces
+ControlUniversal.java - Abstracción Bridge
 
-Demostración Observer: Sistema de notificaciones con múltiples observadores
+SistemaNotificacionesAcademico.java - Observer
 
-* Contexto Académico
-Este proyecto fue desarrollado como parte del curso de Programación Orientada a Objetos, demostrando la aplicación práctica de patrones de diseño en escenarios realistas del ámbito universitario.
+ImplementacionPatronesDiseno.java - Clase principal
 
-*  Características Principales
-✅ Implementación completa de tres patrones de diseño
+📊 Ejemplos de Uso
+Singleton
+java
+GestorConexiones gestor = GestorConexiones.obtenerInstancia();
+gestor.establecerConexion();
+Bridge
+java
+DispositivoMultimedia tv = new Televisor("Samsung");
+ControlUniversal control = new ControlBasico(tv);
+control.encender();
+Observer
+java
+SistemaNotificacionesAcademico sistema = new SistemaNotificacionesAcademico();
+sistema.registrarObservador(new Estudiante("Ana", "A123"));
+sistema.publicarNotificacion("Nueva notificación");
 
-✅ Código bien documentado y estructurado
+🎓 Información Académica
+Materia: Programación Orientada a Objetos
 
-✅ Ejemplos prácticos y realistas
+Propósito: Demostrar implementación de patrones de diseño
 
-✅ Demostración interactiva paso a paso
 
-✅ Manejo de casos de uso específicos
+Patrones: Creacional, Estructural y de Comportamiento
+
+
+Estudiante: Diego Rojas
+
+Curso: Programación Orientada a Objetos
+
+Proyecto académico - Todos los patrones funcionando correctamente
+
